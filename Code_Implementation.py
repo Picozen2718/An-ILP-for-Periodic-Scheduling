@@ -1,5 +1,3 @@
-# Here's the updated version of the code for 4 professors
-
 from pulp import *
 import time
 import numpy as np
@@ -10,7 +8,7 @@ model.constraints.clear()
 for var in model.variables():
     var.setInitialValue(0)
 
-Nx, Ny, Nz = 2, 3, 2        # numbers of undergrad, master’s, PhD students
+Nx, Ny, Nz = 4, 5, 4        # numbers of undergrad, master’s, PhD students
 Tx, Ty, Tz = 3, 2, 1        # required visits per student per professor
 Bx, By, Bz = 1, 2, 3        # minimum day‐gaps between visits
 Rx, Ry, Rz = 1, 2, 3        # consecutive slots per visit
@@ -18,14 +16,14 @@ N = 7  #number of students
 D = 7   #number of days
 P = 6   #number of intervals per day
 L = 1   #emergency time intervals in a day
-Mx, My, Mz = 1, 2, 3
+Mx, My, Mz = 1, 2, 4
 Q = 4              # Update for 4 professors
 professors = range(Q)
 F = np.ones((Q, D, P), dtype=int)  # Availability of each professor
 
-p_x = [[0], [1]]
-p_y = [[1], [2], [3]]
-p_z = [[2], [0, 3]]
+p_x = [[0, 1], [1, 2, 3], [2, 1],[3]]
+p_y = [[1,2], [2], [3], [0,3], [0,2]]
+p_z = [[2], [0,3], [0,1,2], [3,0]]
 
 X = LpVariable.dicts("X", ((i, j, k, p) for i in range(Nx) for j in range(D) for k in range(P) for p in p_x[i]), cat='Binary')
 Y = LpVariable.dicts("Y", ((i, j, k, p) for i in range(Ny) for j in range(D) for k in range(P) for p in p_y[i]), cat='Binary')
@@ -105,7 +103,7 @@ for v in model.variables():
     if v.varValue == 1:
         print(v.name, "=", v.varValue)
 
-# --- build Table 6 ---
+# --- build Table ---
 day_names = ['Monday','Tuesday','Wednesday','Thursday','Friday','Monday','Tuesday']
 schedule = []
 for p in professors:
