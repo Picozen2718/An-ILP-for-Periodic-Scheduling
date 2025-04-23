@@ -32,6 +32,5 @@ This project presents an innovative solution to a complex scheduling problem, of
 ## Code and Slides
 The code for the project and slides for the presentation can be found in the repository.
 
-- [Link to Code](./path/to/code)
 - [Link to Slides](./path/to/slides)
-- [Link to paper](./path/to/paper)
+- [Link to paper]([./path/to/paper](https://arxiv.org/abs/2412.11941))
